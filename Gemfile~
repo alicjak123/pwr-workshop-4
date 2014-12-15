@@ -4,6 +4,8 @@ source 'https://rails-assets.org'
 gem 'rails', '~> 4.1.6'
 gem 'mysql2', '~> 0.3.16'
 gem 'envied', '~> 0.8.1'
+gem 'sqlite3', '~> 1.3.9'
+gem 'pg', '~> 0.17.1'
 
 gem 'coffee-rails', '~> 4.0.1'
 gem 'sass-rails', '~> 4.0.3'

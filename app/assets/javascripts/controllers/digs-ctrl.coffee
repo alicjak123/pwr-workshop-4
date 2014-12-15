@@ -1,13 +1,10 @@
-angular.module('DigApp').controller 'DigsCtrl', ($scope, $http, Rails) ->
-  $scope.digs = []
+angular.module('DigApp').controller 'DigsCtrl', ($scope, Rails, Dig, digs) ->
+  $scope.digs = digs.data
   $scope.newDig = {}
   $scope.editedDigID = null
 
-  $http.get("//#{Rails.host}/api/digs").success (response) ->
-    $scope.digs = response
-
   $scope.create = ->
-    $http.post("//#{Rails.host}/api/digs", { dig: $scope.newDig }).success (response) ->
+    Dig.create($scope.newDig).success (response) ->
       $scope.digs.push response
       $scope.newDig = {}
 
@@ -18,19 +15,19 @@ angular.module('DigApp').controller 'DigsCtrl', ($scope, $http, Rails) ->
     $scope.editedDigID = null
 
   $scope.update = (dig) ->
-    $http.put("//#{Rails.host}/api/digs/#{dig.id}", { dig: dig }).success (response) ->
+    Dig.update(dig).success (response) ->
       # Replace current object with one returned by back-end
       index = $scope.digs.indexOf(dig)
       $scope.digs.splice(index, 1, dig)
       $scope.editedDigID = null
 
   $scope.destroy = (dig) ->
-    $http.delete("//#{Rails.host}/api/digs/#{dig.id}").success (response) ->
+    Dig.destroy(dig).success (response) ->
       index = $scope.digs.indexOf(dig)
       $scope.digs.splice(index, 1)
 
   $scope.vote = (dig, amount) ->
-    $http.post("//#{Rails.host}/api/digs/#{dig.id}/vote", { vote: amount }).success (response) ->
+    Dig.vote(dig, amount).success (response) ->
       console.log response
       dig.rating += amount
 

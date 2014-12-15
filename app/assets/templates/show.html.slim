@@ -1,0 +1,11 @@
+h1
+	| {{ dig.title }}
+p
+	| {{ dig.body }}
+
+button type="button" ng-click="click=!click" Show comments
+div ng-show="click" ng-repeat = "comment in comments"
+	| {{comment.body}}
+	p	
+		a ui-sref="show({dig_id: dig.id, comment_id: comment.id})" more
+

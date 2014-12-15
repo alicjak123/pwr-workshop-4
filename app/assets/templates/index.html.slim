@@ -1,4 +1,3 @@
-div ng-controller="DigsCtrl"
   div ng-repeat="dig in digs"
     div ng-if="editedDigID != dig.id"
       table
@@ -10,8 +9,8 @@ div ng-controller="DigsCtrl"
           td
             | {{ dig.rating }}
 
-      h4 ng-bind="dig.title"
-      span ng-bind="dig.body"
+      h4 
+        a ui-sref="show({id: dig.id})" ng-bind="dig.title"
 
       button type="button" ng-click="edit(dig)" Edit
       button type="button" ng-click="destroy(dig)" &times;
@@ -47,4 +46,3 @@ div ng-controller="DigsCtrl"
     input type="number" ng-model="newDig.owner_id"
     br
     input type="submit" value="Save"
-
